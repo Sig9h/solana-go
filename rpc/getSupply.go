@@ -17,7 +17,7 @@ package rpc
 import (
 	"context"
 
-	"github.com/gagliardetto/solana-go"
+	"github.com/BBleae/solana-go"
 )
 
 // GetSupply returns information about the current supply.

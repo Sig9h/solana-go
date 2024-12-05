@@ -17,8 +17,8 @@ package stake
 import (
 	"errors"
 
+	ag_solanago "github.com/BBleae/solana-go"
 	bin "github.com/gagliardetto/binary"
-	ag_solanago "github.com/gagliardetto/solana-go"
 )
 
 type Lockup struct {

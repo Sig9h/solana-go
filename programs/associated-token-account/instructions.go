@@ -18,10 +18,10 @@ import (
 	"bytes"
 	"fmt"
 
+	solana "github.com/BBleae/solana-go"
+	text "github.com/BBleae/solana-go/text"
 	spew "github.com/davecgh/go-spew/spew"
 	bin "github.com/gagliardetto/binary"
-	solana "github.com/gagliardetto/solana-go"
-	text "github.com/gagliardetto/solana-go/text"
 	treeout "github.com/gagliardetto/treeout"
 )
 
@@ -45,7 +45,7 @@ func init() {
 
 const (
 	// Creates an associated token account for the given wallet address and token mint
-    // Returns an error if the account exists.
+	// Returns an error if the account exists.
 	Instruction_Create uint8 = iota
 
 	// Creates an associated token account for the given wallet address and token mint,

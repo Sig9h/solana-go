@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"math"
 
+	"github.com/BBleae/solana-go"
+	"github.com/BBleae/solana-go/rpc"
 	bin "github.com/gagliardetto/binary"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/rpc"
 )
 
 // The serialized size of lookup table metadata.

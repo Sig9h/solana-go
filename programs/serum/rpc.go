@@ -23,11 +23,11 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/BBleae/solana-go"
+	"github.com/BBleae/solana-go/rpc"
+	"github.com/BBleae/solana-go/rpc/ws"
 	rice "github.com/GeertJohan/go.rice"
 	bin "github.com/gagliardetto/binary"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/rpc"
-	"github.com/gagliardetto/solana-go/rpc/ws"
 	"go.uber.org/zap"
 )
 

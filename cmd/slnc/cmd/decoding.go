@@ -18,9 +18,9 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/BBleae/solana-go"
+	"github.com/BBleae/solana-go/programs/token"
 	bin "github.com/gagliardetto/binary"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/programs/token"
 )
 
 func decode(owner solana.PublicKey, data []byte) (interface{}, error) {
