@@ -13,6 +13,10 @@ type TransactionResult struct {
 	Transaction rpc.GetParsedTransactionResult `json:"transaction"`
 }
 
+type TransactionResult_Triton struct {
+	Value TransactionResult `json:"value"`
+}
+
 type TransactionSubscribeFilter struct {
 	// TODO: bool 也 omitempty 不知道是否合理。
 	Vote            bool     `json:"vote,omitempty"`
@@ -21,6 +25,19 @@ type TransactionSubscribeFilter struct {
 	AccountInclude  []string `json:"accountInclude,omitempty"`
 	AccountExclude  []string `json:"accountExclude,omitempty"`
 	AccountRequired []string `json:"accountRequired,omitempty"`
+}
+
+type TransactionAccountsFilter_Triton struct {
+	Include  []string `json:"include,omitempty"`
+	Exclude  []string `json:"exclude,omitempty"`
+	Required []string `json:"required,omitempty"`
+}
+
+type TransactionSubscribeFilter_Triton struct {
+	Vote      bool                             `json:"vote,omitempty"`
+	Failed    bool                             `json:"failed,omitempty"`
+	Signature string                           `json:"signature,omitempty"`
+	Accounts  TransactionAccountsFilter_Triton `json:"accounts,omitempty"`
 }
 
 type TransactionSubscribeOptions struct {
@@ -35,9 +52,27 @@ type TransactionSubscribeOptions struct {
 func (cl *Client) TransactionSubscribe(
 	filter TransactionSubscribeFilter,
 	options *TransactionSubscribeOptions,
+	isTriton ...bool,
 ) (*TransactionSubscription, error) {
+	params := []interface{}{}
 
-	params := []interface{}{filter}
+	// Check if isTriton is provided and true
+	if len(isTriton) > 0 && isTriton[0] {
+		tritonFilter := TransactionSubscribeFilter_Triton{
+			Vote:      filter.Vote,
+			Failed:    filter.Failed,
+			Signature: filter.Signature,
+			Accounts: TransactionAccountsFilter_Triton{
+				Include:  filter.AccountInclude,
+				Exclude:  filter.AccountExclude,
+				Required: filter.AccountRequired,
+			},
+		}
+		params = append(params, tritonFilter)
+	} else {
+		params = append(params, filter)
+	}
+
 	if options != nil {
 		params = append(params, options)
 	}
@@ -48,9 +83,18 @@ func (cl *Client) TransactionSubscribe(
 		"transactionSubscribe",
 		"transactionUnsubscribe",
 		func(msg []byte) (interface{}, error) {
-			var res TransactionResult
-			err := decodeResponseFromMessage(msg, &res)
-			return &res, err
+			if len(isTriton) > 0 && isTriton[0] {
+				var res TransactionResult_Triton
+				err := decodeResponseFromMessage(msg, &res)
+				if res.Value.Signature == "" {
+					res.Value.Signature = res.Value.Transaction.Transaction.Signatures[0].String()
+				}
+				return &res.Value, err
+			} else {
+				var res TransactionResult
+				err := decodeResponseFromMessage(msg, &res)
+				return &res, err
+			}
 		},
 	)
 	if err != nil {
