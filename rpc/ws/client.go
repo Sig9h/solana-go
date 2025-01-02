@@ -51,9 +51,9 @@ type Client struct {
 
 const (
 	// Time allowed to write a message to the peer.
-	writeWait = 10 * time.Second
+	writeWait = 3 * time.Second
 	// Time allowed to read the next pong message from the peer.
-	pongWait = 60 * time.Second
+	pongWait = 10 * time.Second
 	// Send pings to peer with this period. Must be less than pongWait.
 	pingPeriod = (pongWait * 9) / 10
 )
@@ -107,7 +107,11 @@ func ConnectWithOptions(ctx context.Context, rpcEndpoint string, opt *Options) (
 	c.connCtx, c.connCtxCancel = context.WithCancel(context.Background())
 	go func() {
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
-		c.conn.SetPongHandler(func(string) error { c.conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
+		c.conn.SetPongHandler(func(string) error {
+			fmt.Println("<- Pong")
+			c.conn.SetReadDeadline(time.Now().Add(pongWait))
+			return nil
+		})
 		ticker := time.NewTicker(pingPeriod)
 		for {
 			select {
@@ -128,8 +132,23 @@ func (c *Client) sendPing() {
 
 	c.conn.SetWriteDeadline(time.Now().Add(writeWait))
 	if err := c.conn.WriteMessage(websocket.PingMessage, []byte{}); err != nil {
+		fmt.Printf("Failed to ping geyser: %v", err)
+
 		return
+	} else {
+		fmt.Println("-> Ping")
 	}
+}
+
+func (c *Client) GetConn() *websocket.Conn {
+	if c != nil {
+		c.lock.Lock()
+		defer c.lock.Unlock()
+		return c.conn
+	} else {
+		return nil
+	}
+
 }
 
 func (c *Client) Close() {

@@ -92,6 +92,7 @@ func SendAndConfirmTransactionWithOpts(
 		wsClient,
 		sig,
 		timeout,
+		opts,
 	)
 	return sig, err
 }
@@ -105,10 +106,11 @@ func WaitForConfirmation(
 	wsClient *ws.Client,
 	sig solana.Signature,
 	timeout *time.Duration,
+	opts rpc.TransactionOpts,
 ) (confirmed bool, err error) {
 	sub, err := wsClient.SignatureSubscribe(
 		sig,
-		rpc.CommitmentFinalized,
+		opts.PreflightCommitment,
 	)
 	if err != nil {
 		return false, err
