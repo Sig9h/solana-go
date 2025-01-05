@@ -25,9 +25,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/diff"
-	"github.com/BBleae/solana-go/rpc"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/diff"
+	"github.com/Sig9h/solana-go/rpc"
 	bin "github.com/gagliardetto/binary"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

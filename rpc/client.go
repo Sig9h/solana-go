@@ -25,7 +25,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/BBleae/solana-go/rpc/jsonrpc"
+	"github.com/Sig9h/solana-go/rpc/jsonrpc"
 	"github.com/klauspost/compress/gzhttp"
 )
 

@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/programs/system"
-	"github.com/BBleae/solana-go/rpc"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/programs/system"
+	"github.com/Sig9h/solana-go/rpc"
 )
 
 const (

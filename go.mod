@@ -1,4 +1,4 @@
-module github.com/BBleae/solana-go
+module github.com/Sig9h/solana-go
 
 go 1.19
 

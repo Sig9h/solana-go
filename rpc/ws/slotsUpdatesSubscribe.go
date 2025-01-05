@@ -17,7 +17,7 @@ package ws
 import (
 	"context"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 )
 
 type SlotsUpdatesResult struct {

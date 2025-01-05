@@ -22,10 +22,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/programs/token"
-	"github.com/BBleae/solana-go/rpc"
-	"github.com/BBleae/solana-go/text"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/programs/token"
+	"github.com/Sig9h/solana-go/rpc"
+	"github.com/Sig9h/solana-go/text"
 	bin "github.com/gagliardetto/binary"
 	"github.com/spf13/cobra"
 )

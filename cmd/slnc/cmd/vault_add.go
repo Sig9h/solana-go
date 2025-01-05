@@ -20,10 +20,10 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 
-	"github.com/BBleae/solana-go/cli"
-	"github.com/BBleae/solana-go/vault"
+	"github.com/Sig9h/solana-go/cli"
+	"github.com/Sig9h/solana-go/vault"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

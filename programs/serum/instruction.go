@@ -21,8 +21,8 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/text"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/text"
 	bin "github.com/gagliardetto/binary"
 )
 
