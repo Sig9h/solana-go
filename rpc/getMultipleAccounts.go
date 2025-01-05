@@ -18,7 +18,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 )
 
 type GetMultipleAccountsResult struct {

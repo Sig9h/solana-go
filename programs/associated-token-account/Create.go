@@ -18,8 +18,8 @@ import (
 	"errors"
 	"fmt"
 
-	solana "github.com/BBleae/solana-go"
-	format "github.com/BBleae/solana-go/text/format"
+	solana "github.com/Sig9h/solana-go"
+	format "github.com/Sig9h/solana-go/text/format"
 	bin "github.com/gagliardetto/binary"
 	treeout "github.com/gagliardetto/treeout"
 )

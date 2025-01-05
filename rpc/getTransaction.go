@@ -18,7 +18,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 	bin "github.com/gagliardetto/binary"
 )
 

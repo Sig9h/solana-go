@@ -19,8 +19,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/rpc"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/rpc"
 	"github.com/davecgh/go-spew/spew"
 )
 

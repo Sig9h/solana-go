@@ -17,9 +17,9 @@ package main
 import (
 	"context"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/programs/token"
-	"github.com/BBleae/solana-go/rpc"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/programs/token"
+	"github.com/Sig9h/solana-go/rpc"
 	"github.com/davecgh/go-spew/spew"
 	bin "github.com/gagliardetto/binary"
 )

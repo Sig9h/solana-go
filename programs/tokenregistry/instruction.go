@@ -23,9 +23,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/BBleae/solana-go/text"
+	"github.com/Sig9h/solana-go/text"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 	bin "github.com/gagliardetto/binary"
 )
 

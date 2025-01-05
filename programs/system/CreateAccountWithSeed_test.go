@@ -19,7 +19,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 	bin "github.com/gagliardetto/binary"
 	ag_gofuzz "github.com/gagliardetto/gofuzz"
 	ag_require "github.com/stretchr/testify/require"

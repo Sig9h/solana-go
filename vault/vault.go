@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 )
 
 // Vault represents a `solana-go` wallet.  It contains the encrypted

@@ -22,13 +22,13 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/BBleae/solana-go"
-	_ "github.com/BBleae/solana-go/programs/serum"
-	_ "github.com/BBleae/solana-go/programs/system"
-	_ "github.com/BBleae/solana-go/programs/token"
-	_ "github.com/BBleae/solana-go/programs/tokenregistry"
-	"github.com/BBleae/solana-go/rpc"
-	"github.com/BBleae/solana-go/text"
+	"github.com/Sig9h/solana-go"
+	_ "github.com/Sig9h/solana-go/programs/serum"
+	_ "github.com/Sig9h/solana-go/programs/system"
+	_ "github.com/Sig9h/solana-go/programs/token"
+	_ "github.com/Sig9h/solana-go/programs/tokenregistry"
+	"github.com/Sig9h/solana-go/rpc"
+	"github.com/Sig9h/solana-go/text"
 	"github.com/spf13/cobra"
 )
 

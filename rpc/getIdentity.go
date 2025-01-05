@@ -17,7 +17,7 @@ package rpc
 import (
 	"context"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 )
 
 // GetIdentity returns the identity pubkey for the current node.

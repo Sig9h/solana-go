@@ -18,8 +18,8 @@ import (
 	"bytes"
 	"fmt"
 
-	ag_solanago "github.com/BBleae/solana-go"
-	ag_text "github.com/BBleae/solana-go/text"
+	ag_solanago "github.com/Sig9h/solana-go"
+	ag_text "github.com/Sig9h/solana-go/text"
 	"github.com/davecgh/go-spew/spew"
 	ag_binary "github.com/gagliardetto/binary"
 	"github.com/gagliardetto/treeout"

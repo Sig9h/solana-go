@@ -17,7 +17,7 @@ package rpc
 import (
 	"context"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 )
 
 // GetFeeCalculatorForBlockhash returns the fee calculator

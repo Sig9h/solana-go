@@ -17,7 +17,7 @@ package stake
 import (
 	"errors"
 
-	ag_solanago "github.com/BBleae/solana-go"
+	ag_solanago "github.com/Sig9h/solana-go"
 	bin "github.com/gagliardetto/binary"
 )
 
