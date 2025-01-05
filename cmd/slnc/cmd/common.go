@@ -20,9 +20,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/BBleae/solana-go/rpc"
+	"github.com/Sig9h/solana-go/rpc"
 
-	"github.com/BBleae/solana-go/vault"
+	"github.com/Sig9h/solana-go/vault"
 	"github.com/spf13/viper"
 )
 

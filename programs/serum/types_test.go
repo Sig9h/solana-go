@@ -25,7 +25,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 	bin "github.com/gagliardetto/binary"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

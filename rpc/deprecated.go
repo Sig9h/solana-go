@@ -21,7 +21,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 )
 
 // GetConfirmedBlock returns identity and transaction information about a confirmed block in the ledger.

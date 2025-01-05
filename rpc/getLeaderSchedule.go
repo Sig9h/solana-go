@@ -17,7 +17,7 @@ package rpc
 import (
 	"context"
 
-	"github.com/BBleae/solana-go"
+	"github.com/Sig9h/solana-go"
 )
 
 // GetLeaderSchedule returns the leader schedule for current epoch.

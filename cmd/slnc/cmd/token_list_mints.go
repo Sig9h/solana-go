@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/BBleae/solana-go/programs/token"
+	"github.com/Sig9h/solana-go/programs/token"
 	"github.com/ryanuber/columnize"
 	"github.com/spf13/cobra"
 )

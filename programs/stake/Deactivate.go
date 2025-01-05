@@ -17,8 +17,8 @@ package stake
 import (
 	"fmt"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/text/format"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/text/format"
 	bin "github.com/gagliardetto/binary"
 	"github.com/gagliardetto/treeout"
 )

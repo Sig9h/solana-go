@@ -21,13 +21,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/BBleae/solana-go/rpc"
+	"github.com/Sig9h/solana-go/rpc"
 
 	"github.com/spf13/viper"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/programs/system"
-	"github.com/BBleae/solana-go/programs/tokenregistry"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/programs/system"
+	"github.com/Sig9h/solana-go/programs/tokenregistry"
 	"github.com/spf13/cobra"
 )
 

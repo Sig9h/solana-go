@@ -18,8 +18,8 @@ import (
 	"bytes"
 	"fmt"
 
-	solana "github.com/BBleae/solana-go"
-	text "github.com/BBleae/solana-go/text"
+	solana "github.com/Sig9h/solana-go"
+	text "github.com/Sig9h/solana-go/text"
 	spew "github.com/davecgh/go-spew/spew"
 	bin "github.com/gagliardetto/binary"
 	treeout "github.com/gagliardetto/treeout"

@@ -17,8 +17,8 @@ package ws
 import (
 	"context"
 
-	"github.com/BBleae/solana-go"
-	"github.com/BBleae/solana-go/rpc"
+	"github.com/Sig9h/solana-go"
+	"github.com/Sig9h/solana-go/rpc"
 )
 
 type ParsedBlockResult struct {

@@ -23,8 +23,8 @@ import (
 )
 
 var zlog = zap.NewNop()
-var traceEnabled = logging.IsTraceEnabled("solana-go", "github.com/BBleae/solana-go/program/serum")
+var traceEnabled = logging.IsTraceEnabled("solana-go", "github.com/Sig9h/solana-go/program/serum")
 
 func init() {
-	logging.Register("github.com/BBleae/solana-go/program/serum", &zlog)
+	logging.Register("github.com/Sig9h/solana-go/program/serum", &zlog)
 }
