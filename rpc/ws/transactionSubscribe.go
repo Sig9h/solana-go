@@ -8,9 +8,13 @@ import (
 )
 
 type TransactionResult struct {
-	Signature   string                         `json:"signature"`
-	Slot        uint64                         `json:"slot"`
-	Transaction rpc.GetParsedTransactionResult `json:"transaction"`
+	Signature   string `json:"signature"`
+	Slot        uint64 `json:"slot"`
+	Transaction struct {
+		Transaction *rpc.TransactionResultEnvelope `json:"transaction" bin:"optional"`
+		Meta        *rpc.TransactionMeta           `json:"meta,omitempty" bin:"optional"`
+		Version     rpc.TransactionVersion         `json:"version"`
+	} `json:"transaction"`
 }
 
 type TransactionResult_Triton struct {
@@ -87,7 +91,11 @@ func (cl *Client) TransactionSubscribe(
 				var res TransactionResult_Triton
 				err := decodeResponseFromMessage(msg, &res)
 				if res.Value.Signature == "" {
-					res.Value.Signature = res.Value.Transaction.Transaction.Signatures[0].String()
+					tx, err := res.Value.Transaction.Transaction.GetTransaction()
+					if err != nil {
+						return nil, err
+					}
+					res.Value.Signature = tx.Signatures[0].String()
 				}
 				return &res.Value, err
 			} else {
