@@ -7,6 +7,13 @@ import (
 	"github.com/Sig9h/solana-go/rpc"
 )
 
+type TransactionEvent struct {
+	IsJSONParsed bool
+	Signature    string
+	Result       *TransactionResult
+	ParsedResult *ParsedTransactionResult
+}
+
 type TransactionResult struct {
 	Signature   string `json:"signature"`
 	Slot        uint64 `json:"slot"`
@@ -15,6 +22,15 @@ type TransactionResult struct {
 		Meta        *rpc.TransactionMeta           `json:"meta,omitempty" bin:"optional"`
 		Version     rpc.TransactionVersion         `json:"version"`
 	} `json:"transaction"`
+}
+type ParsedTransactionResult struct {
+	Signature   string                         `json:"signature"`
+	Slot        uint64                         `json:"slot"`
+	Transaction rpc.GetParsedTransactionResult `json:"transaction"`
+}
+
+type TritonTXResult[T TransactionResult | ParsedTransactionResult] struct {
+	Value T `json:"value"`
 }
 
 type TransactionResult_Triton struct {
@@ -87,22 +103,55 @@ func (cl *Client) TransactionSubscribe(
 		"transactionSubscribe",
 		"transactionUnsubscribe",
 		func(msg []byte) (interface{}, error) {
+			isJSONParsed := options != nil && options.Encoding == solana.EncodingJSONParsed
+			event := &TransactionEvent{
+				IsJSONParsed: isJSONParsed,
+			}
+
 			if len(isTriton) > 0 && isTriton[0] {
-				var res TransactionResult_Triton
-				err := decodeResponseFromMessage(msg, &res)
-				if res.Value.Signature == "" {
-					tx, err := res.Value.Transaction.Transaction.GetTransaction()
+				if isJSONParsed {
+					var res TritonTXResult[ParsedTransactionResult]
+					err := decodeResponseFromMessage(msg, &res)
 					if err != nil {
 						return nil, err
 					}
-					res.Value.Signature = tx.Signatures[0].String()
+					// TODO: Sig 修补？
+					event.ParsedResult = &res.Value
+					event.Signature = res.Value.Signature
+				} else {
+					var res TritonTXResult[TransactionResult]
+					err := decodeResponseFromMessage(msg, &res)
+					if err != nil {
+						return nil, err
+					}
+					// TODO: 需要确认下这个修补的必要性。
+					if res.Value.Signature == "" {
+						tx, err := res.Value.Transaction.Transaction.GetTransaction()
+						if err != nil {
+							return nil, err
+						}
+						res.Value.Signature = tx.Signatures[0].String()
+					}
+					event.Result = &res.Value
+					event.Signature = res.Value.Signature
 				}
-				return &res.Value, err
 			} else {
-				var res TransactionResult
-				err := decodeResponseFromMessage(msg, &res)
-				return &res, err
+				if isJSONParsed {
+					err := decodeResponseFromMessage(msg, &event.ParsedResult)
+					if err != nil {
+						return nil, err
+					}
+					event.Signature = event.ParsedResult.Signature
+				} else {
+					err := decodeResponseFromMessage(msg, &event.Result)
+					if err != nil {
+						return nil, err
+					}
+					event.Signature = event.Result.Signature
+				}
 			}
+
+			return event, nil
 		},
 	)
 	if err != nil {
@@ -117,7 +166,7 @@ type TransactionSubscription struct {
 	sub *Subscription
 }
 
-func (sw *TransactionSubscription) Recv(ctx context.Context) (*TransactionResult, error) {
+func (sw *TransactionSubscription) Recv(ctx context.Context) (*TransactionEvent, error) {
 	select {
 	case <-ctx.Done():
 		return nil, ctx.Err()
@@ -125,7 +174,7 @@ func (sw *TransactionSubscription) Recv(ctx context.Context) (*TransactionResult
 		if !ok {
 			return nil, ErrSubscriptionClosed
 		}
-		return d.(*TransactionResult), nil
+		return d.(*TransactionEvent), nil
 	case err := <-sw.sub.err:
 		return nil, err
 	}
@@ -135,15 +184,15 @@ func (sw *TransactionSubscription) Err() <-chan error {
 	return sw.sub.err
 }
 
-func (sw *TransactionSubscription) Response() <-chan *TransactionResult {
-	typedChan := make(chan *TransactionResult, 1)
-	go func(ch chan *TransactionResult) {
+func (sw *TransactionSubscription) Response() <-chan *TransactionEvent {
+	typedChan := make(chan *TransactionEvent, 1)
+	go func(ch chan *TransactionEvent) {
 		// TODO: will this subscription yield more than one result?
 		d, ok := <-sw.sub.stream
 		if !ok {
 			return
 		}
-		ch <- d.(*TransactionResult)
+		ch <- d.(*TransactionEvent)
 	}(typedChan)
 	return typedChan
 }
