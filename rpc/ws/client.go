@@ -47,6 +47,7 @@ type Client struct {
 	subscriptionByWSSubID   map[uint64]*Subscription
 	reconnectOnErr          bool
 	shortID                 bool
+	opts                    Options
 }
 
 const (
@@ -79,6 +80,9 @@ func ConnectWithOptions(ctx context.Context, rpcEndpoint string, opt *Options) (
 		HandshakeTimeout:  DefaultHandshakeTimeout,
 		EnableCompression: true,
 	}
+	if opt != nil {
+		c.opts = *opt
+	}
 
 	if opt != nil && opt.ShortID {
 		c.shortID = opt.ShortID
@@ -108,7 +112,10 @@ func ConnectWithOptions(ctx context.Context, rpcEndpoint string, opt *Options) (
 	go func() {
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
 		c.conn.SetPongHandler(func(string) error {
-			fmt.Println("<- Pong")
+			//fmt.Printf("[%s] -> Pong\n", c.rpcURL)
+			if c.opts.PongCallback != nil {
+				opt.PongCallback(c)
+			}
 			c.conn.SetReadDeadline(time.Now().Add(pongWait))
 			return nil
 		})
@@ -136,7 +143,11 @@ func (c *Client) sendPing() {
 
 		return
 	} else {
-		fmt.Println("-> Ping")
+		if c.opts.PingCallback != nil {
+			c.opts.PingCallback(c)
+		}
+		//fmt.Printf("[%s] <- Ping\n", c.rpcURL)
+
 	}
 }
 
@@ -145,6 +156,17 @@ func (c *Client) GetConn() *websocket.Conn {
 		c.lock.Lock()
 		defer c.lock.Unlock()
 		return c.conn
+	} else {
+		return nil
+	}
+
+}
+
+func (c *Client) GetRpcUrl() *string {
+	if c != nil {
+		c.lock.Lock()
+		defer c.lock.Unlock()
+		return &c.rpcURL
 	} else {
 		return nil
 	}
