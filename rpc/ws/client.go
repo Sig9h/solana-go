@@ -388,6 +388,13 @@ func decodeResponseFromReader(r io.Reader, reply interface{}) (err error) {
 		return json2.ErrNullResult
 	}
 
+	if c.Params.Error != nil {
+		return &json2.Error{
+			Code:    json2.E_SERVER,
+			Message: string(*c.Params.Error),
+		}
+	}
+
 	return json.Unmarshal(*c.Params.Result, &reply)
 }
 
@@ -410,6 +417,13 @@ func decodeResponseFromMessage(r []byte, reply interface{}) (err error) {
 
 	if c.Params == nil {
 		return json2.ErrNullResult
+	}
+
+	if c.Params.Error != nil {
+		return &json2.Error{
+			Code:    json2.E_SERVER,
+			Message: string(*c.Params.Error),
+		}
 	}
 
 	return json.Unmarshal(*c.Params.Result, &reply)
