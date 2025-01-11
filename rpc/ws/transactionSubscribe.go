@@ -8,10 +8,10 @@ import (
 )
 
 type TransactionEvent struct {
-	IsJSONParsed bool
-	Signature    string
-	Result       *TransactionResult
-	ParsedResult *ParsedTransactionResult
+	IsJSONParsed bool                     `json:"isJSONParsed"`
+	Signature    string                   `json:"signature"`
+	Result       *TransactionResult       `json:"result,omitempty"`
+	ParsedResult *ParsedTransactionResult `json:"parsedResult"`
 }
 
 type TransactionResult struct {
