@@ -24,9 +24,13 @@ type TransactionResult struct {
 	} `json:"transaction"`
 }
 type ParsedTransactionResult struct {
-	Signature   string                         `json:"signature"`
-	Slot        uint64                         `json:"slot"`
-	Transaction rpc.GetParsedTransactionResult `json:"transaction"`
+	Signature   string `json:"signature"`
+	Slot        uint64 `json:"slot"`
+	Transaction struct {
+		Transaction *rpc.ParsedTransaction
+		Meta        *rpc.ParsedTransactionMeta
+		Version     rpc.TransactionVersion `json:"version"`
+	} `json:"transaction"`
 }
 
 type TritonTXResult[T TransactionResult | ParsedTransactionResult] struct {
