@@ -43,8 +43,8 @@ type TransactionResult_Triton struct {
 
 type TransactionSubscribeFilter struct {
 	// TODO: bool 也 omitempty 不知道是否合理。
-	Vote            bool     `json:"vote,omitempty"`
-	Failed          bool     `json:"failed,omitempty"`
+	Vote            *bool    `json:"vote,omitempty"`
+	Failed          *bool    `json:"failed"`
 	Signature       string   `json:"signature,omitempty"`
 	AccountInclude  []string `json:"accountInclude,omitempty"`
 	AccountExclude  []string `json:"accountExclude,omitempty"`
@@ -58,8 +58,8 @@ type TransactionAccountsFilter_Triton struct {
 }
 
 type TransactionSubscribeFilter_Triton struct {
-	Vote      bool                             `json:"vote,omitempty"`
-	Failed    bool                             `json:"failed,omitempty"`
+	Vote      *bool                            `json:"vote,omitempty"`
+	Failed    *bool                            `json:"failed,omitempty"`
 	Signature string                           `json:"signature,omitempty"`
 	Accounts  TransactionAccountsFilter_Triton `json:"accounts,omitempty"`
 }
